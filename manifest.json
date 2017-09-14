@@ -1,0 +1,35 @@
+//主配置文件
+
+{
+  "manifest_version": 2,
+
+  "name": "JS机器人",
+  "description": "这是一款借助chrome extent开发的微信机器人>>>>QQ284751067",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "devtools_page": "devtools.html",
+  "background": {
+    "scripts": ["background01.js"]
+  },
+
+
+  "content_scripts": [
+    {
+      "matches": ["https://wx2.qq.com/"],
+      //"css": ["mystyles.css"],
+      "js": ["jquery-2.0.3.js", "content01.js"]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "https://login.weixin.qq.com/*",
+    "https://www.baidu.com/*",
+    "https://wx2.qq.com/*"
+    //"https://ajax.googleapis.com/"
+  ]
+}

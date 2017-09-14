@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<p id="test"></p>
+</body>
+<script src="../jquery-2.0.3.js"></script>
+<!--首先在页面引入jquery的后面，紧接着以下代码：-->
+<script>
+    //前提：所有ajax请求都是用jquery的$.ajax发起的，而非原生的XHR；
+    var ajaxBack = $.ajax;
+    var ajaxCount = 0;
+    var allAjaxDone = function(){$('#test').append('all done!<br>');} //一行代码，就可以知道所有ajax请求什么时候结束
+    //由于get/post/getJSON等，最后还是调用到ajax，因此只要改ajax函数即可
+    $.ajax = function(setting){
+        ajaxCount++;
+        var cb = setting.complete;
+        setting.complete = function(){
+            if($.isFunction(cb)){cb.apply(setting.context, arguments);}
+            ajaxCount--;
+            if(ajaxCount==0 && $.isFunction(allAjaxDone)){
+                allAjaxDone();
+            }
+        }
+        ajaxBack(setting);
+    }
+</script>
+<!--以下是别人的script-->
+<script>
+    $.ajax({url: 'jquery-2.0.3.js', success: function(recv){$('#test').append('别人的ajax请求1，done<br>')}});
+</script>
+<script>
+    $.get('jquery-2.0.3.js', null, function(recv){$('#test').append('别人的get请求，done<br>')});
+</script>
+<script>
+    $.post('jquery-2.0.3.js', null, function(recv){$('#test').append('别人的post请求，done<br>')});
+</script>
+</html>
