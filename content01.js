@@ -194,7 +194,10 @@ function timedCount01() {
 }
 timedCount01()
 
-
+function timedCount02() {
+    location.reload();
+}
+setTimeout("timedCount02()", 10000000)
 
 
 
