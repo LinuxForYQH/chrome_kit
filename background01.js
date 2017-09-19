@@ -12,7 +12,7 @@ var tabId;
  */
 chrome.extension.onRequest.addListener(function (request) {
 
-    console.log(request);
+    //console.log(request);
     tabId = request.tabId;
     //发送消息content层
     chrome.tabs.sendRequest(tabId, request , function (results) {

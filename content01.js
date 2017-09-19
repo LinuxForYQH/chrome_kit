@@ -29,7 +29,7 @@ var Msg = {
  */
 chrome.extension.onRequest.addListener(function (request) {
 
-    console.log(request);
+    //console.log(request);
 
     //监听最新的消息
     if (request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync") >= 0) {
@@ -176,7 +176,7 @@ function webwxbatchgetcontact_a(request) {
  */
 var click=0;
 function timedCount01() {
-    setTimeout("timedCount01()", 10000)
+    setTimeout("timedCount01()", 20000)
     if (!wxInit || !BaseRequest)  return;
     //模拟点击
     if(click==0) {
@@ -197,7 +197,7 @@ timedCount01()
 function timedCount02() {
     location.reload();
 }
-setTimeout("timedCount02()", 10000000)
+//setTimeout("timedCount02()", 10000000)
 
 
 
