@@ -1,5 +1,6 @@
 # chrome_kit
 #### 这是一款借助chrome 插件的微信机器人（交流群：553059667）<br>
+#### 本人熟悉java和javascript ，有招人的请加QQ:284751067
 
 ### 1.chrome kit微信机器人简介
 
