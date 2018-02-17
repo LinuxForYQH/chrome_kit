@@ -13,6 +13,8 @@ var wxInit;
 //群联系
 var webwxbatchgetcontact;
 
+var url_wx="https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg?"+"me=me";
+
 var Msg = {
     Type: 1,
     Content: "0",
@@ -31,8 +33,15 @@ chrome.extension.onRequest.addListener(function (request) {
 
     //console.log(request);
 
+
     //监听最新的消息
-    if (request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync") >= 0) {
+    if (request.url.indexOf("cgi-bin/mmwebwx-bin/webwxsync") >= 0) {
+
+        //处理部分地域请求冲突
+        if(request.url.indexOf("wx.qq.com")>=0){
+            url_wx="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg?"+"me=me";
+        }
+
         if (!request.content) return;
         news = JSON.parse(request.content);
         if (news.AddMsgCount && news.AddMsgCount > 0 && wxInit != null && (news.AddMsgList[0].Content != '')) {
@@ -53,7 +62,7 @@ chrome.extension.onRequest.addListener(function (request) {
     }
 
     //初始化监听
-    if (request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact") >= 0) {
+    if (request.url.indexOf("cgi-bin/mmwebwx-bin/webwxbatchgetcontact") >= 0) {
         if (!request.Contact || !request.BaseRequest || !request.wxInit || !request.webwxbatchgetcontact) return;
 
         wxInit_a(request);
@@ -91,7 +100,7 @@ function webwxsendmsg(BaseRequest, Msg) {
     Msg.LocalID = clientMsgId;
     Msg.ClientMsgId = clientMsgId;
     $.ajax({
-        url: 'https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg',
+        url: url_wx,
         type: 'POST',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({
@@ -104,7 +113,6 @@ function webwxsendmsg(BaseRequest, Msg) {
             console.log(data)
         }
     })
-
 }
 
 /**
@@ -193,21 +201,6 @@ function timedCount01() {
     webwxsendmsg(BaseRequest, Msg)
 }
 timedCount01()
-
-function timedCount02() {
-    location.reload();
-}
-//setTimeout("timedCount02()", 10000000)
-
-
-
-
-//获取联系人
-// if (request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact") >= 0) {
-//     //BaseRequest=request.params;
-//     Contact = request.content;
-// }
-
 
 
 

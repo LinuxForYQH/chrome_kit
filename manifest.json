@@ -19,7 +19,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://wx2.qq.com/"],
+      "matches": ["https://wx2.qq.com/","https://wx.qq.com/"],
       //"css": ["mystyles.css"],
       "js": ["jquery-2.0.3.js", "content01.js"]
     }
@@ -29,7 +29,8 @@
     "tabs",
     "https://login.weixin.qq.com/*",
     "https://www.baidu.com/*",
-    "https://wx2.qq.com/*"
+    "https://wx2.qq.com/*",
+    "https://wx.qq.com/*"
     //"https://ajax.googleapis.com/"
   ]
 }

@@ -12,8 +12,10 @@ var webwxbatchgetcontact=null;
 var webwxbatchgetcontact_si;
 
 var signal_a;
+var signal_a_2;
 
 var signal_b;
+var signal_b_2;
 
 /**
  * dev域用于toolbar的网络监听
@@ -26,11 +28,13 @@ chrome.devtools.network.onRequestFinished.addListener(
 
         //匹配地址
         signal_a = request.request.url.indexOf('wx2.qq.com');
+        signal_a_2 = request.request.url.indexOf('wx.qq.com');
 
         signal_b = request.request.url.indexOf('wx2.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact');
+        signal_b_2 = request.request.url.indexOf('wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact');
 
 
-        if (signal_b > 0&&request.request.url.indexOf("me=me")<0) {//me=me是循环标志
+        if ((signal_b > 0||signal_b_2>0)&&request.request.url.indexOf("me=me")<0) {//me=me是循环标志
             request.getContent(function (body) {
 
                 //判断数据来存储联系群
@@ -52,15 +56,15 @@ chrome.devtools.network.onRequestFinished.addListener(
                     url: request.request.url,
                 });
             });
-        } else if (signal_a > 0&&request.request.url.indexOf("me=me")<0) {//me=me是循环标志
+        } else if ((signal_a > 0||signal_a_2>0)&&request.request.url.indexOf("me=me")<0) {//me=me是循环标志
             request.getContent(function (body,base64) {
                 //初始化监听
-                if (request.request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxinit") > 0&&body!=null) {
+                if (request.request.url.indexOf("cgi-bin/mmwebwx-bin/webwxinit") > 0&&body!=null) {
                     wxInit = request.request;
                 }
 
                 //获取联系人
-                if (request.request.url.indexOf("wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact") > 0&&
+                if ((request.request.url.indexOf("cgi-bin/mmwebwx-bin/webwxgetcontact") > 0)&&
                     request.request.url.indexOf('skey')>0&&body!=null) {
                     Contact = request.request;
 
