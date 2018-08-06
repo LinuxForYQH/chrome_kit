@@ -1,4 +1,4 @@
-# chrome_kit
+# chrome_kit  喜欢的话给个star吧
 #### 这是一款借助chrome 插件的微信机器人（交流群：553059667）<br>
 #### 本人熟悉java和javascript ，工作勤肯，有招人的请加QQ:284751067
 
